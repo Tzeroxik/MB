@@ -1,5 +1,5 @@
 module MB
-    export covariance_matrix, svd
+    export center_matrix, cov_center_matrix, pca
     using LinearAlgebra
     using Statistics
 
