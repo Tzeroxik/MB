@@ -1,4 +1,4 @@
-# 2nd Project for the curricular unit "Modelação Bayesiana"
+# 2nd project for the curricular unit *Modelação Bayesiana*
 
 ## Implemented functions
 
