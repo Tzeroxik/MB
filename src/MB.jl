@@ -1,23 +1,10 @@
 module MB
+    export covariance_matrix, svd
+    using LinearAlgebra
+    using Statistics
 
-    function covariance_matrix(mat::Array{Float64 ,2})::Float64 
-        out::Array{Float64 ,2} = mat |> size |> zeros
-        
-        local col::Array{Float64 ,2}
-        local dim::Int32
-
-        for i in axes(mat,1)
-            col = mat[:,i]
-            s = sum(col) / length(col)        
-            out[:,i] = map(x -> x - s, col)
-        end 
-        out
-    end
-
-    function svd(mat::Array{Float64,2})::Float64 
-        mat |> covariance_matrix 
-            |> covmat -> (mat - covmat)' * (mat - covmat) 
-            |> eig
-    end 
- 
+    center_matrix(mat::Array{Float64 ,2})::Array{Float64 ,2} = (matrix .- mean(mat,dims=1)) ./ std(mat,dims=1)   
+    cov_center_matrix(centermat::Array{Float64 ,2})::Array{Float64 ,2} = centermat |> length |> float |> n -> centermat' * centermat / (n  - 1.)
+    pca(mat::Array{Float64 ,2})::SVD = mat |> center_matrix |> svd
+    
 end 
