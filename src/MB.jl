@@ -9,13 +9,17 @@ module MB
 
     pca(mat::Array{Float64 ,2})::SVD = mat |> correlation_matrix |> svd
 
-    function count_principal_components((U,_,_)::SVD)::UInt32
+    function count_principal_components(dataset_pca::SVD)::UInt32
+        U,_,_ = dataset_pca
         for i in axes(U,2) 
             if (norm(U[:,i]) <= 1.) return i end 
         end
     end
 
-    principal_components((U,S,_)::SVD, k) = U[:, 1:k] * S[1:k, 1:k]
+    function principal_components(dataset_pca::SVD; k) 
+        U,S,_ = dataset_pca
+        U[:, 1:k] * S[1:k, 1:k]
+    end
 
     function reduce_dimensionality(dataset_pca::SVD; k::UInt32 = 0) 
         if k == 0 
