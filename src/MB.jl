@@ -1,5 +1,5 @@
 module MB
-    export correlation_matrix, covariance_matrix, pca, select_principal_components
+    export correlation_matrix, covariance_matrix, pca, principal_components, reduce_dimensionality, count_principal_components
     using LinearAlgebra
     using Statistics
 
