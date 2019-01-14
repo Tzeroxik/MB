@@ -1,5 +1,5 @@
 
-type Vec2D
+struct Vec2D
     x::Float64
     y::Float64
 end
@@ -15,13 +15,13 @@ function ProdByScalar2D(lambda::Float64,u::Vec2D)
 end
 
 
-type Vec3D
+struct Vec3D
     x::Float64
     y::Float64
     z::Float64
 end
 
-type Plane3D
+struct Plane3D
     point::Vec3D
     normal::Vec3D
 end
@@ -120,12 +120,12 @@ end
 
 
 # the basic data type is a vector with N dimensions.
-type VecND
+struct VecND
     dim::Int
     values::Array{Float64,1}
 end
 
-type HyperPlaneND
+struct HyperPlaneND
     point::VecND
     normal::VecND
 end
