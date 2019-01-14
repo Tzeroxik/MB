@@ -1,3 +1,4 @@
+using LinearAlgebra
 
 struct Vec2D
     x::Float64
@@ -183,7 +184,7 @@ function VecNDToMatrix(uarra::Array{VecND,1})
     tamanho = length(uarra) ;
     dimen = uarra[1].dim
 
-    matriz = Array{Float64}(tamanho,dimen)
+    matriz = Array{Float64,2}(undef,tamanho,dimen);
 
     for i in 1:tamanho
         for j in 1:dimen
@@ -225,8 +226,8 @@ function VectorProdND(uarr::Array{VecND,1})
     end
 
     #equivalent to argmax
-    switmax = indmax(abs.(soma))
-    switmin = indmin(abs.(soma))
+    _,switmax = findmax(abs.(soma))
+    _,switmin = findmin(abs.(soma))
     # we exchange the signal of the entry with the highest abs value
     # this way we guarantee that soma is linearly independent
     soma[switmax] *= -1.0
@@ -249,7 +250,7 @@ function VectorProdND(uarr::Array{VecND,1})
 
     tmpout_mat = matrix \ matb
 
-    values = Array{Float64}(dimension)
+    values = Array{Float64,1}(undef,dimension)
     for i in 1:dimension
         values[i] = tmpout_mat[i,1]
     end
