@@ -16,12 +16,11 @@ module MB
         end
     end
 
-    function principal_components(dataset_pca::SVD; k) 
-        U,S,_ = dataset_pca
-        U[:, 1:k] * S[1:k, 1:k]
+    function principal_components(dataset_pca, k)         
+        dataset_pca.U[:, 1:k] * Diagonal(dataset_pca.S)[1:k, 1:k]
     end
 
-    function reduce_dimensionality(dataset_pca::SVD; k::UInt32 = 0) 
+    function reduce_dimensionality(dataset_pca, k = 0) 
         if k == 0 
             k = count_principal_components(dataset_pca) 
         end 
