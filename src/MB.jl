@@ -9,11 +9,9 @@ module MB
 
     pca(mat::Array{Float64 ,2})::SVD = mat |> correlation_matrix |> svd
 
-    AUTOMATIC = 0. 
-
-    function select_principal_components((U,S,_)::SVD; ncomponents::Float64 = AUTOMATIC)::Array{Float64 ,2}
+    function select_principal_components((U,S,_)::SVD; ncomponents::Float64 = 0.)::Array{Float64 ,2}
         
-        if ncomponents != AUTOMATIC
+        if ncomponents != 0.
             for i in axes(U,2)
                 if norm(U[:,i]) <= 1.
                     ncomponents = i
