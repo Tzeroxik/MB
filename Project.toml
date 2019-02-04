@@ -1,6 +1,7 @@
-authors = ["Tzeroxik <adriano.halo@gmail.com>"]
 name = "MB"
 uuid = "0649a570-0c44-11e9-3704-cffcb1002022"
+authors = ["Tzeroxik <adriano.halo@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
