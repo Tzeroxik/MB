@@ -7,7 +7,7 @@ struct AutoEncoder
     _model         
 end 
 
-function AutoEncoder(inout_dim::Int32, encoded_size::Int32)
+function AutoEncoder(inout_dim::Int64, encoded_size::Int64)
     encoder = Dense(inout_dim, encoded_size, leakyrelu)
     decoder = Dense(encoded_size, inout_dim, leakyrelu)
     model   = Chain(encoder, decoder)
@@ -18,9 +18,9 @@ function train(autoencoder::AutoEncoder, data)
     
     loss(x) = mse(autoencoder._model(x), x)
     evalcb = throttle(() -> @show(loss(data[1])), 5)
-    optimizer = ADAM()
+    opt = ADAM(params(autoencoder._model))
     
-    @epochs 10 Flux.train!(loss, params(autoencoder._model), zip(data), optimizer, cb = evalcb)
+    @epochs 10 Flux.train!(loss, zip(data), opt, cb = evalcb)
 end
 
 
