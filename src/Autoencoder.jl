@@ -14,13 +14,13 @@ function AutoEncoder(inout_dim::Int64, encoded_size::Int64)
     AutoEncoder(encoder, decoder, model)
 end
 
-function train(autoencoder::AutoEncoder, data) 
+function train(autoencoder::AutoEncoder, data,nepochs = 10::Int64) 
     
     loss(x) = mse(autoencoder._model(x), x)
     evalcb = throttle(() -> @show(loss(data[1])), 5)
     opt = ADAM(params(autoencoder._model))
     
-    @epochs 10 Flux.train!(loss, zip(data), opt, cb = evalcb)
+    @epochs nepochs Flux.train!(loss, zip(data), opt, cb = evalcb)
 end
 
 
