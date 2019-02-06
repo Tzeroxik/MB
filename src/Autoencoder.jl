@@ -14,7 +14,7 @@ function AutoEncoder(inout_dim::Int64, encoded_size::Int64)
     AutoEncoder(encoder, decoder, model)
 end
 
-function train(autoencoder::AutoEncoder, data,nepochs = 10::Int64) 
+function train(autoencoder::AutoEncoder, data::Array{Array{Float64,2},1},nepochs = 10::Int64) 
     
     loss(x) = mse(autoencoder._model(x), x)
     evalcb = throttle(() -> @show(loss(data[1])), 5)
